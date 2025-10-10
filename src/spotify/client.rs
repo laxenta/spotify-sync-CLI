@@ -15,7 +15,7 @@
 
 use reqwest::Client;
 use anyhow::Result;
-use crate::spotify::models::{Track, Artist, Playlist, PlaylistTracksWrapper as PlaylistTracks, SimplifiedPlaylist};
+use crate::spotify::models::{Track, SimplifiedPlaylist, Album, SavedAlbum};
 
 pub struct SpotifyClient {
     client: Client,
@@ -252,6 +252,62 @@ impl SpotifyClient {
                 .bearer_auth(&self.access_token)
                 .json(&serde_json::json!({
                     "uris": chunk
+                }))
+                .send()
+                .await?;
+        }
+
+        Ok(())
+    }
+
+    /// Get all saved albums from the user's library
+    pub async fn get_saved_albums(&self) -> Result<Vec<Album>> {
+        let mut albums = Vec::new();
+        let mut offset = 0;
+        let limit = 50;
+
+        loop {
+            let response: serde_json::Value = self.client
+                .get(format!(
+                    "https://api.spotify.com/v1/me/albums?limit={}&offset={}",
+                    limit, offset
+                ))
+                .bearer_auth(&self.access_token)
+                .send()
+                .await?
+                .json()
+                .await?;
+
+            let items = response["items"].as_array().unwrap();
+            
+            if items.is_empty() {
+                break;
+            }
+
+            for item in items {
+                let saved_album: SavedAlbum = serde_json::from_value(item.clone())?;
+                albums.push(saved_album.album);
+            }
+
+            offset += limit;
+            
+            if response["next"].is_null() {
+                break;
+            }
+        }
+
+        Ok(albums)
+    }
+
+    /// Save albums to user's library
+    pub async fn save_albums(&self, album_ids: &[String]) -> Result<()> {
+        // Spotify allows max 50 albums per request
+        for chunk in album_ids.chunks(50) {
+            self.client
+                .put("https://api.spotify.com/v1/me/albums")
+                .bearer_auth(&self.access_token)
+                .json(&serde_json::json!({
+                    "ids": chunk
                 }))
                 .send()
                 .await?;

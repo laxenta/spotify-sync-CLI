@@ -22,8 +22,11 @@ A goofy command-line tool for seamlessly transferring your Spotify library betwe
 - **Account Management**: Log in to multiple Spotify accounts and manage them easily
 - **Comprehensive Transfer**: Copy liked songs, playlists, and albums
 - **Interactive Progress**: Real-time progress bars for transfer operations
+- **Beautiful TUI Interface**: Interactive terminal UI for easier account selection and transfer
 - **Secure Authentication**: Uses Spotify's OAuth 2.0 flow for secure access
 - **Data Persistence**: Safely stores authentication tokens for future use
+- **Album Support**: Transfer your saved albums between accounts
+- **Comprehensive Transfer**: Copy liked songs, playlists, and albums with progress tracking
 
 ## Installation
 
@@ -132,8 +135,13 @@ cp .env.example .env
 # 10. Preview what will be transferred
 ./target/release/spotify-sync preview source
 
-# 11. Start the transfer!
+# 11. Start the transfer! (Choose one method)
+
+# Method 1: Command-line with progress bars
 ./target/release/spotify-sync transfer source target
+
+# Method 2: Interactive TUI interface
+./target/release/spotify-sync tui
 ```
 
 ### What to Expect
@@ -154,7 +162,16 @@ cp .env.example .env
      - Liked songs being copied
      - Each playlist being created
      - Tracks being added to each playlist
+     - Albums being saved to library
    - Don't close the terminal until it's done!
+
+4. **Using the TUI Interface**:
+   - Run `./target/release/spotify-sync tui` for an interactive interface
+   - Use ↑/↓ arrows to select accounts
+   - Press Enter to confirm selection
+   - Press T to start transfer when ready
+   - Press Q to quit at any time
+   - Watch real-time progress in a beautiful interface!
 
 ### Troubleshooting
 

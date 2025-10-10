@@ -54,3 +54,16 @@ pub struct SimplifiedPlaylist {
     pub description: Option<String>,
     pub public: bool,
 }
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct Album {
+    pub id: String,
+    pub name: String,
+    pub artists: Vec<Artist>,
+    pub uri: String,
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct SavedAlbum {
+    pub album: Album,
+}

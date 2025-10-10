@@ -29,8 +29,56 @@ pub async fn transfer_all(source_account: &str, target_account: &str) -> Result<
     // Transfer playlists
     println!("\nTransferring Playlists...");
     transfer_playlists(&source_client, &target_client, &multi).await?;
+    
+    // Transfer albums
+    println!("\n💿 Transferring Albums...");
+    transfer_albums(&source_client, &target_client, &multi).await?;
 
-    println!("\nTransfer complete!");
+    println!("\n✨ Transfer complete!");
+    
+    Ok(())
+}
+
+async fn transfer_albums(
+    source: &crate::spotify::client::SpotifyClient,
+    target: &crate::spotify::client::SpotifyClient,
+    multi: &MultiProgress,
+) -> Result<()> {
+    let pb = multi.add(ProgressBar::new_spinner());
+    pb.set_style(
+        ProgressStyle::default_spinner()
+            .template("{spinner:.green} {msg}")
+            .unwrap()
+    );
+    pb.set_message("Fetching albums...");
+
+    let albums = source.get_saved_albums().await?;
+    let total = albums.len();
+    
+    pb.finish_with_message(format!("Found {} albums", total));
+    
+    if total == 0 {
+        return Ok(());
+    }
+
+    let pb = multi.add(ProgressBar::new(total as u64));
+    pb.set_style(
+        ProgressStyle::default_bar()
+            .template("{msg} [{bar:40.cyan/blue}] {pos}/{len} ({eta})")
+            .unwrap()
+            .progress_chars("#>-")
+    );
+    pb.set_message("Saving albums");
+
+    let album_ids: Vec<String> = albums.iter().map(|a| a.id.clone()).collect();
+    
+    // Save in chunks and update progress
+    for chunk in album_ids.chunks(50) {
+        target.save_albums(chunk).await?;
+        pb.inc(chunk.len() as u64);
+    }
+
+    pb.finish_with_message(format!("✓ Saved {} albums", total));
     
     Ok(())
 }

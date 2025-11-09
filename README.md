@@ -1,5 +1,7 @@
 # Spotify Sync CLI
-
+sadly spotify turned off its programme for extension requests, i can still finish this, but everyone gotta put thier own spotify credentials from spotify dashboard for this to work now
+   ## (this wont work lmao, sadly yea, spotify blocked localhosts and they dont let us extend now, yea there is no way a normal person can make this code work- will be remaking this fully to smth else)
+   
 [![Rust](https://img.shields.io/badge/rust-%23000000.svg?style=for-the-badge&logo=rust&logoColor=white)](https://www.rust-lang.org/)
 [![Spotify](https://img.shields.io/badge/Spotify-1ED760?style=for-the-badge&logo=spotify&logoColor=white)](https://developer.spotify.com/)
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
@@ -59,7 +61,6 @@ cargo build --release
 4. Fill in the application details:
    - App name: `spotify-sync` (or any name you prefer)
    - Redirect URI: `http://localhost:8888/callback`
-   ## (this wont work lmao, sadly yea, spotify blocked localhosts, i will be adding the redirect for my api in the Code, so this readMe is temproary and will be updated with an easy way)
    - Website: (optional)
    - Description: (optional)
 5. After creating the app, you'll see your:

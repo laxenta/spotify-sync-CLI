@@ -1,0 +1,45 @@
+{
+	"name": "colorwall",
+	"version": "0.1.0",
+	"private": true,
+	"main": "dist-electron/main.js",
+	"scripts": {
+		"dev": "concurrently \"pnpm dev:next\" \"pnpm dev:ts\" \"pnpm dev:electron\"",
+		"dev:next": "cross-env PORT=3000 next dev",
+		"dev:ts": "tsc -p electron/tsconfig.json --watch",
+		"dev:electron": "wait-on http://localhost:3000 dist-electron/main.js && nodemon --watch dist-electron --exec \"electron ./dist-electron/main.js\"",
+		"build": "pnpm build:renderer && pnpm build:electron",
+		"build:renderer": "next build",
+		"build:electron": "tsc -p electron/tsconfig.json",
+		"start": "next start",
+		"dist": "pnpm build && electron-builder"
+	},
+	"dependencies": {
+		"@types/cheerio": "^1.0.0",
+		"axios": "^1.13.2",
+		"cheerio": "^1.1.2",
+		"electron-is-dev": "^3.0.1",
+		"electron-store": "^11.0.2",
+		"lucide-react": "^0.553.0",
+		"next": "^16.0.1",
+		"react": "^19.2.0",
+		"react-dom": "^19.2.0",
+		"sharp": "^0.34.5",
+		"wallpaper": "^7.2.1"
+	},
+	"devDependencies": {
+		"@types/node": "^24.10.1",
+		"@types/react": "^19.2.3",
+		"@types/react-dom": "^19.2.3",
+		"autoprefixer": "^10.4.22",
+		"concurrently": "^9.2.1",
+		"cross-env": "^10.1.0",
+		"electron": "^39.1.2",
+		"electron-builder": "^26.0.12",
+		"nodemon": "^3.1.11",
+		"postcss": "^8.5.6",
+		"tailwindcss": "3.4.1",
+		"typescript": "^5.9.3",
+		"wait-on": "^9.0.3"
+	}
+}

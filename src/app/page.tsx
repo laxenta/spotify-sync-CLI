@@ -266,7 +266,7 @@ const ImageCard = ({ image, onSelect }: {
       className="group relative bg-gray-950/70 rounded-xl overflow-hidden border border-gray-900/50 hover:border-blue-500/30 transition-all duration-300 cursor-pointer shadow-lg hover:shadow-xl hover:shadow-blue-500/10 backdrop-blur-sm animate-fadeIn"
       onClick={onSelect}
     >
-      <div className="aspect-video relative overflow-hidden bg-black/50">
+      <div className="aspect-[21/12] relative overflow-hidden bg-black/50">
         {!imgLoaded && !imgError && (
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="w-6 h-6 border-2 border-blue-500/20 border-t-blue-500 rounded-full animate-spin" />
@@ -793,8 +793,10 @@ export default function WallpaperEngine() {
         </div>
       </div>
 
-      {/* Content */}
-      <div className="max-w-7xl mx-auto px-4 py-6 relative z-10">
+      {/* Content uh changed the span to max screen cz it ugly before*/}
+      {/* <div className="max-w-7xl mx-auto px-4 py-6 relative z-10">
+       */} 
+       <div className="max-w-full mx-auto px-4 py-6 relative z-10">
         {wallpapers.length === 0 && !loading && (
           <div className="text-center py-24 animate-fadeIn">
             <div className="inline-block p-5 bg-gray-900/30 backdrop-blur-sm rounded-2xl mb-4 border border-gray-800/50">
@@ -808,11 +810,13 @@ export default function WallpaperEngine() {
         {loading && (
           <div className="text-center py-24 animate-fadeIn">
             <Loader2 className="w-14 h-14 mx-auto text-blue-500 animate-spin mb-4" strokeWidth={1.5} />
-            <p className="text-lg font-semibold text-gray-500">Fetching wallpapers...</p>
+            <p className="text-lg font-semibold text-gray-500">...</p>
           </div>
         )}
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        {/* <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"> */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {wallpapers.map((image) => (
             <ImageCard
               key={image.id}
@@ -822,6 +826,7 @@ export default function WallpaperEngine() {
           ))}
         </div>
       </div>
+
     </div>
   );
 }

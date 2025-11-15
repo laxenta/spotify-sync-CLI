@@ -214,7 +214,7 @@ const ImageCard = ({ image, onSelect, isLoading }: {
       className="group relative bg-gray-950/50 rounded-2xl overflow-hidden border border-gray-900/50 hover:border-cyan-500/50 transition-all duration-300 cursor-pointer shadow-xl hover:shadow-2xl hover:shadow-cyan-500/20 backdrop-blur-sm animate-fadeIn"
       onClick={onSelect}
     >
-      <div className="aspect-video relative overflow-hidden bg-black">
+      <div className="aspect-[21/9] relative overflow-hidden bg-black">
         {!imgLoaded && !imgError && (
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="w-8 h-8 border-2 border-cyan-500/20 border-t-cyan-500 rounded-full animate-spin" />
@@ -224,14 +224,14 @@ const ImageCard = ({ image, onSelect, isLoading }: {
         <img
           ref={imgRef}
           alt={image.title ?? `Wallpaper ${image.id}`}
-          className={`w-full h-full object-cover group-hover:scale-110 transition-all duration-700 ${
+          className={`w-full h-full object-cover group-hover:scale-210 transition-all duration-700 ${
             imgLoaded ? 'opacity-100' : 'opacity-0'
           }`}
           loading="lazy"
           onLoad={() => setImgLoaded(true)}
           onError={(e) => {
             setImgError(true);
-            console.error(`Failed to load image ${image.id}`);
+            console.error(`img load failed bc of network issues ${image.id}`);
           }}
         />
         
@@ -775,7 +775,8 @@ export default function WallpaperEngine() {
           </div>
         )}
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        {/* <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"> */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
           {wallpapers.map((image) => (
             <ImageCard
               key={image.id}

@@ -12,14 +12,14 @@
 ## ✨ Features
 # up coming - autochange after a period of time from a list of selected tags by you (or random)
 - **🌐 Multi-Source Wallpaper Aggregation** - Fetches from 7+ wallpaper sites
-- ** Live2D Support** - Interactive anime wallpapers (not yet implemented)
-- ** QUICK WALLPAPER SETTING** - one click and that's it, boom a good wallpaper
-- ** Smart Caching** - Local image cache for offline access
-- ** Proxy System** - Built-in image proxy for CORS bypass
-- ** Advanced Filtering** - For the best results across all sites we scrape from
+- **Live2D Support** - Interactive anime wallpapers (not yet implemented)
+- **QUICK WALLPAPER SETTING** - one click and that's it, boom a good wallpaper
+- **Smart Caching** - Local image cache for offline access
+- **Proxy System** - Built-in image proxy for CORS bypass
+- **Advanced Filtering** - For the best results across all sites we scrape from
 - **⚡ Okay at Performance, just gpu heavy** 
-- ** Native Desktop App**
-- ** okayish UI**
+- **Native Desktop App**
+- **okayish UI**
 
 ---
 
